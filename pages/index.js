@@ -20,6 +20,22 @@ const testSchema = {
       required: true,
       fullWidth: true,
     },
+    {
+      name: 'name',
+      type: 'text',
+      dataType: 'email',
+      label: 'E-mail',
+      required: true,
+      fullWidth: true,
+    },
+    {
+      name: 'telefone',
+      type: 'text',
+      dataType: 'tel',
+      label: 'Telefone',
+      required: true,
+      fullWidth: true,
+    },
   ],
 };
 

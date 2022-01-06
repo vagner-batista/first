@@ -7,41 +7,45 @@ const components = {
 };
 
 const mountComponent = (field) => {
-  console.log(field);
+  console.log(components[field.type]);
   return Object.keys(components).includes(field.type)
     ? components[field.type]
     : null;
 };
 
-function mountTextInput(fieldData, reg, err) {
-  const { label, dataType, name, required, fullWidth } = fieldData;
-  console.log(reg);
-  const inp = (
+function mountTextInput(fieldData, register, errors) {
+  const { label, dataType, name, required, fullWidth, maxLength } = fieldData;
+  return (
     <TextInput
       key={name}
       label={label}
       mask={dataType}
       name={name}
-      register={reg}
-      errors={err}
+      register={register}
+      errors={errors}
       required={required}
       fullWidth={fullWidth}
-      maxLength={maxLength}
+      maxLength={maxLength ? maxLength : null}
     />
   );
-  console.log(inp);
-  return inp;
 }
 
+function mountTextInputTest(fieldData, reg, err) {
+  return (
+    <div key="chave" id="testeDiv">
+      Teste Div
+    </div>
+  );
+}
 export default function FormMaker(props) {
-  const { register, errors } = useForm();
+  const { register, formState: errors } = useForm();
   console.log(props.schema);
   const { fields } = props.schema;
   const { name, id, action, method, variants } = props.schema.config;
   return (
     <form name={name} id={id}>
       <TextField name="teste"></TextField>
-      {fields.forEach((field) => mountComponent(field, register, errors))}
+      {fields.map((field) => mountTextInput(field, register, errors))}
     </form>
   );
 }
